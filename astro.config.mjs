@@ -11,5 +11,6 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
-  site: 'https://eurodrive-transfers.com'
+  site: 'https://akashmdbuda-droid.github.io',
+  base: '/ce-private-travels'
 });
