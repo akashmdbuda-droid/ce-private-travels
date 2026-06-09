@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TrustBar from '../components/TrustBar.astro';
+import EstimateForm from '../components/EstimateForm';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+const { data: locations } = await supabase
+  .from('locations')
+  .select('id, city, latitude, longitude, country_code')
+  .order('city', { ascending: true });
+
+const mainSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "EuroDrive Private Transfers",
+  "description": "Premium private cross-border driver networks linking Hungary, Austria, and Germany directly.",
+  "telephone": "+36301234567",
+  "priceRange": "EUR",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Budapest",
+    "addressCountry": "HU"
+  }
+};
+---
+<Layout title="Premium Private Intercity Transfers | EuroDrive" description="Door-to-door luxury private driver networks across Hungary, Austria, and Germany. Calculate real pricing ranges instantly and secure execution via WhatsApp." lang="en" slug="">
+  <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Direct European Carrier</span>
+    <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
+      Private Trans-Border Journeys Free From Agency Markups
+    </h1>
+    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
+      Experience door-to-door tracking absolute priority travel across Hungary, Austria, and Germany. Complete executive fleet options driven by multilingual route experts.
+    </p>
+
+    <div class="mb-16">
+      <EstimateForm client:load locations={locations || []} lang="en" />
+    </div>
+
+    <TrustBar lang="en" />
+  </section>
+</Layout>

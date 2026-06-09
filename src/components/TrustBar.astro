@@ -1,0 +1,29 @@
+---
+interface Props {
+  lang: 'en' | 'de' | 'hu';
+}
+const { lang } = Astro.props;
+
+const text = {
+  en: { speed: "12 Minutes", speedSub: "Avg Response Speed", volume: "1,200+", volumeSub: "Completed Trips", zones: "HU • AT • DE", zonesSub: "Countries Served" },
+  de: { speed: "12 Minuten", speedSub: "Beantwortungszeit", volume: "1.200+", volumeSub: "Erfolgreiche Fahrten", zones: "HU • AT • DE", zonesSub: "Abgedeckte Länder" },
+  hu: { speed: "12 Perc", speedSub: "Átlagos válaszidő", volume: "1.200+", volumeSub: "Teljesített utak", zones: "HU • AT • DE", zonesSub: "Kiszolgált országok" }
+};
+const localized = text[lang];
+---
+<div class="bg-white border border-slate-100 rounded-3xl p-8 max-w-4xl mx-auto shadow-sm my-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+    <div class="pt-4 sm:pt-0">
+      <p class="text-4xl font-black text-indigo-950 tracking-tight">{localized.speed}</p>
+      <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">{localized.speedSub}</p>
+    </div>
+    <div class="pt-6 sm:pt-0">
+      <p class="text-4xl font-black text-indigo-950 tracking-tight">{localized.volume}</p>
+      <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">{localized.volumeSub}</p>
+    </div>
+    <div class="pt-6 sm:pt-0">
+      <p class="text-4xl font-black text-indigo-950 tracking-tight text-blue-600">{localized.zones}</p>
+      <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">{localized.zonesSub}</p>
+    </div>
+  </div>
+</div>

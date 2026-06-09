@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TrustBar from '../../components/TrustBar.astro';
+import EstimateForm from '../../components/EstimateForm';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+const { data: locations } = await supabase
+  .from('locations')
+  .select('id, city, latitude, longitude, country_code')
+  .order('city', { ascending: true });
+---
+<Layout title="Premium Private Transfers | EuroDrive Zentraleuropa" description="Privater Chauffeurservice und interstädtische Transfers zwischen Ungarn, Österreich und Deutschland. Erhalten Sie sofort ein unverbindliches Angebot über WhatsApp." lang="de" slug="">
+  <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Direkter Europäischer Fahrdienst</span>
+    <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
+      Private Fernfahrten ohne versteckte Agenturgebühren
+    </h1>
+    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
+      Reisen Sie erstklassig von Tür zu Tür zwischen Ungarn, Österreich und Deutschland. Zuverlässige mehrsprachige Chauffeure und moderne Premium-Fahrzeuge stehen für Sie bereit.
+    </p>
+
+    <div class="mb-16">
+      <EstimateForm client:load locations={locations || []} lang="de" />
+    </div>
+
+    <TrustBar lang="de" />
+  </section>
+</Layout>
