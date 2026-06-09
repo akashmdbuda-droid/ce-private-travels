@@ -20,7 +20,7 @@ jobs:
       - name: Install, build, and test your project
         uses: withastro/action@v3
         with:
-          node-version: 20
+          node-version: 22
           # We pass the public supabase keys so Astro can fetch the locations during the build step!
         env:
           PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
