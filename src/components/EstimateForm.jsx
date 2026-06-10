@@ -68,6 +68,7 @@ export default function EstimateForm({ locations = [], lang = 'en' }) {
       customer_name: fields.name,
       whatsapp_number: fields.phone,
       route_slug: slug,
+      vehicle_preference: fields.fleet === 'Sedan' ? 'Premium Sedan' : fields.fleet === 'Van' ? 'Luxury Van' : 'Executive Minibus',
       lead_source: 'Google Organic'
     }]);
 

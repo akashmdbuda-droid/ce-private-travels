@@ -26,6 +26,7 @@ serve(async (req) => {
                  `📍 *From:* ${record.pickup_location}\n` +
                  `🏁 *To:* ${record.destination_location}\n` +
                  `👥 *Passengers:* ${record.pax_count}\n` +
+                 `🚗 *Vehicle:* ${record.vehicle_preference || 'Not specified'}\n` +
                  `📅 *Schedule:* ${record.travel_datetime}\n` +
                  `📊 *Source Channel:* ${record.lead_source}\n\n` +
                  `💬 *Immediate Action Link:* https://wa.me/${record.whatsapp_number.replace(/\s+/g, '')}`;
