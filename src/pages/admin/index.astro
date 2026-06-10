@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminApp from '../../components/admin/AdminApp.jsx';
+---
+
+<Layout title="Admin OS | EuroDrive" description="EuroDrive Internal Business Intelligence" lang="en" slug="admin">
+  <AdminApp client:only="react" />
+</Layout>
