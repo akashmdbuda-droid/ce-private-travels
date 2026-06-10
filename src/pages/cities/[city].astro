@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TrustBar from '../../components/TrustBar.astro';
+import EstimateForm from '../../components/EstimateForm';
+import { createClient } from '@supabase/supabase-js';
+
+export async function getStaticPaths() {
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  const { data: locations } = await supabase
+    .from('locations')
+    .select('id, city, latitude, longitude, country_code');
+
+  return locations.map(loc => {
+    return {
+      params: { city: loc.city.toLowerCase() },
+      props: { location: loc, allLocations: locations }
+    };
+  });
+}
+
+const { location, allLocations } = Astro.props;
+
+// Exclude current city to generate outbound routes list
+const outboundRoutes = allLocations.filter(l => l.id !== location.id);
+
+const mainSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `Do you offer private transfers starting from ${location.city}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Yes, our premium private driver network operates extensively out of ${location.city}. We can dispatch a vehicle directly to your hotel or the airport.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Can you pick me up directly from the airport in ${location.city}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Absolutely. We monitor flight arrivals in ${location.city} in real-time. Your driver will meet you directly at the arrivals terminal holding a name sign.`
+      }
+    }
+  ]
+};
+---
+<Layout 
+  title={`Private Transfers from ${location.city} | EuroDrive`} 
+  description={`Book luxury private drivers departing from ${location.city}. Door-to-door transportation to Austria, Germany, and Hungary.`} 
+  lang="en" 
+  slug={`cities/${Astro.params.city}`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
+
+  <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
+    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">City Hub: {location.city}</span>
+    <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
+      Premium Private Drivers in {location.city}
+    </h1>
+    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
+      Operating a dedicated fleet of luxury sedans and executive minibuses out of {location.city}. Book cross-border transfers instantly with zero hidden fees.
+    </p>
+
+    <div class="mb-16">
+      <EstimateForm 
+        client:load 
+        locations={allLocations} 
+        lang="en" 
+        initialPickup={location.city} 
+      />
+    </div>
+    
+    <div class="mt-16 text-left max-w-5xl mx-auto">
+      <h3 class="text-2xl font-black text-indigo-950 mb-6">Popular Routes from {location.city}</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {outboundRoutes.slice(0, 12).map(dest => {
+          const routeSlug = `${location.city.toLowerCase()}-to-${dest.city.toLowerCase()}`.replace(/\s+/g, '-');
+          return (
+            <a href={`/ce-private-travels/routes/${routeSlug}`} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
+              <span class="text-xs text-slate-400 block mb-1">To</span>
+              {dest.city}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <TrustBar lang="en" />
+    </div>
+  </section>
+</Layout>

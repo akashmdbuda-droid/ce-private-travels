@@ -19,13 +19,13 @@ function computeHaversineDistanceKM(lat1, lon1, lat2, lon2) {
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))) * 1.25;
 }
 
-export default function EstimateForm({ locations = [], lang = 'en' }) {
+export default function EstimateForm({ locations = [], lang = 'en', initialPickup = '', initialDestination = '' }) {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rangeDisplay, setRangeDisplay] = useState({ min: 0, max: 0 });
   
   const [fields, setFields] = useState({
-    pickup: '', destination: '', fleet: 'Sedan', pax: '1', name: '', phone: '', datetime: ''
+    pickup: initialPickup, destination: initialDestination, fleet: 'Sedan', pax: '1', name: '', phone: '', datetime: ''
   });
 
   const uiText = {
