@@ -24,6 +24,8 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
   const [rangeDisplay, setRangeDisplay] = useState({ min: 0, max: 0 });
+  const [pickupFocus, setPickupFocus] = useState(false);
+  const [destFocus, setDestFocus] = useState(false);
   
   const [fields, setFields] = useState({
     pickup: initialPickup, destination: initialDestination, fleet: 'Sedan', pax: '1', name: '', phone: '', datetime: '', budget: '', requests: '', quoteFile: null
@@ -140,18 +142,28 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
       {step === 1 ? (
         <form onSubmit={handleCalculate} className="space-y-5">
           <h3 className="text-xl font-black text-indigo-950 tracking-tight">{uiText.title1}</h3>
-          
-          <datalist id="locationsList">
-            {locations.map(l => <option key={l.id} value={l.city} />)}
-          </datalist>
 
-          <div>
+          <div className="relative">
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelPick}</label>
-            <input type="text" list="locationsList" value={fields.pickup} onChange={e => setFields({...fields, pickup: e.target.value})} placeholder="e.g. Vienna Airport, Hilton Budapest" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" />
+            <input type="text" value={fields.pickup} onChange={e => setFields({...fields, pickup: e.target.value})} onFocus={() => setPickupFocus(true)} onBlur={() => setTimeout(() => setPickupFocus(false), 200)} placeholder="e.g. Vienna Airport, Hilton Budapest" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autocomplete="off" />
+            {pickupFocus && (
+              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-48 overflow-y-auto">
+                {locations.filter(l => l.city.toLowerCase().includes(fields.pickup.toLowerCase())).map(l => (
+                  <li key={l.id} onMouseDown={() => setFields({...fields, pickup: l.city})} className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700">{l.city}</li>
+                ))}
+              </ul>
+            )}
           </div>
-          <div>
+          <div className="relative">
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelDest}</label>
-            <input type="text" list="locationsList" value={fields.destination} onChange={e => setFields({...fields, destination: e.target.value})} placeholder="e.g. Salzburg, Prague" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" />
+            <input type="text" value={fields.destination} onChange={e => setFields({...fields, destination: e.target.value})} onFocus={() => setDestFocus(true)} onBlur={() => setTimeout(() => setDestFocus(false), 200)} placeholder="e.g. Salzburg, Prague" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autocomplete="off" />
+            {destFocus && (
+              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-48 overflow-y-auto">
+                {locations.filter(l => l.city.toLowerCase().includes(fields.destination.toLowerCase())).map(l => (
+                  <li key={l.id} onMouseDown={() => setFields({...fields, destination: l.city})} className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700">{l.city}</li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -187,7 +199,10 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
               <p className="text-sm font-semibold tracking-tight mt-2 leading-relaxed">{uiText.customDesc}</p>
             </div>
           )}
-          <h3 className="text-xl font-black text-indigo-950 tracking-tight">{uiText.title2}</h3>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-xl font-black text-indigo-950 tracking-tight">{uiText.title2}</h3>
+            <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-blue-600 hover:text-blue-800 transition">← Back</button>
+          </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
