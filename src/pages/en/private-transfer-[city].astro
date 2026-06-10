@@ -54,7 +54,7 @@ const mainSchema = {
   title={`Private Transfers from ${location.city} | EuroDrive`} 
   description={`Book luxury private drivers departing from ${location.city}. Door-to-door transportation to Austria, Germany, and Hungary.`} 
   lang="en" 
-  slug={`cities/${Astro.params.city}`}
+  slug={`en/private-transfer-${Astro.params.city}`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
 
@@ -82,7 +82,7 @@ const mainSchema = {
         {outboundRoutes.slice(0, 12).map(dest => {
           const routeSlug = `${location.city.toLowerCase()}-to-${dest.city.toLowerCase()}`.replace(/\s+/g, '-');
           return (
-            <a href={`/ce-private-travels/routes/${routeSlug}`} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
+            <a href={`/routes/${routeSlug}`} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
               <span class="text-xs text-slate-400 block mb-1">To</span>
               {dest.city}
             </a>

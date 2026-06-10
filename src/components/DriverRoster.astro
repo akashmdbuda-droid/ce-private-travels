@@ -1,0 +1,80 @@
+---
+import { createClient } from '@supabase/supabase-js';
+
+const { lang } = Astro.props;
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+
+const { data: drivers } = await supabase
+  .from('drivers')
+  .select('*')
+  .eq('active', true)
+  .eq('profile_display', true)
+  .order('years_experience', { ascending: false });
+
+const translations = {
+  en: { title: "Meet Your Chauffeurs", exp: "Years Experience", lang: "Speaks", spec: "Specialties", stats: "Trust Metrics", trips: "3,500+ Completed Transfers", rating: "4.9/5 Average Rating", expTotal: "15+ Years Combined Experience", regions: "Serving Hungary • Austria • Germany" },
+  de: { title: "Lernen Sie Ihre Chauffeure Kennen", exp: "Jahre Erfahrung", lang: "Spricht", spec: "Spezialgebiete", stats: "Vertrauensmetriken", trips: "3.500+ Abgeschlossene Transfers", rating: "4.9/5 Durchschnittsbewertung", expTotal: "15+ Jahre Gesamterfahrung", regions: "Ungarn • Österreich • Deutschland" },
+  hu: { title: "Ismerje meg Sofőrjeinket", exp: "Év Tapasztalat", lang: "Beszélt Nyelvek", spec: "Specialitások", stats: "Bizalmi Mutatók", trips: "3,500+ Sikeres Transzfer", rating: "4.9/5 Átlagos Értékelés", expTotal: "15+ Év Közös Tapasztalat", regions: "Magyarország • Ausztria • Németország" }
+};
+const t = translations[lang] || translations['en'];
+---
+
+<section class="max-w-5xl mx-auto px-6 py-16 md:py-24">
+  <div class="text-center mb-16">
+    <h1 class="text-4xl md:text-5xl font-black text-indigo-950 tracking-tight mb-4">{t.title}</h1>
+    <p class="text-lg text-slate-600 font-medium max-w-2xl mx-auto">{t.stats}</p>
+    <div class="flex flex-wrap justify-center gap-4 mt-6">
+      <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-sm font-bold">{t.trips}</span>
+      <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-sm font-bold">{t.rating}</span>
+      <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-sm font-bold">{t.expTotal}</span>
+    </div>
+    <p class="text-sm font-bold text-slate-400 mt-6 tracking-widest uppercase">{t.regions}</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    {drivers && drivers.map(driver => (
+      <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-slate-200/40 hover:-translate-y-1 transition-transform">
+        <div class="flex items-center gap-6 mb-6">
+          <div class="w-24 h-24 rounded-full bg-slate-200 flex-shrink-0 overflow-hidden border-4 border-white shadow-lg">
+            {driver.profile_image_url ? (
+              <img src={driver.profile_image_url} alt={driver.full_name} class="w-full h-full object-cover" />
+            ) : (
+              <div class="w-full h-full bg-indigo-100 flex items-center justify-center text-indigo-300 font-black text-3xl">
+                {driver.full_name.charAt(0)}
+              </div>
+            )}
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-slate-900">{driver.full_name}</h3>
+            <p class="text-indigo-600 font-bold text-sm mt-1">{driver.years_experience} {t.exp}</p>
+          </div>
+        </div>
+        
+        <p class="text-slate-600 font-medium leading-relaxed mb-6">{driver.biography}</p>
+        
+        <div class="space-y-4">
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">{t.lang}</span>
+            <div class="flex flex-wrap gap-2">
+              {driver.languages_spoken?.map(lang => (
+                <span class="bg-slate-50 border border-slate-200 text-slate-700 px-3 py-1 rounded-lg text-xs font-semibold">{lang}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">{t.spec}</span>
+            <div class="flex flex-wrap gap-2">
+              {driver.specialties?.map(spec => (
+                <span class="bg-blue-50 border border-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs font-semibold">{spec}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

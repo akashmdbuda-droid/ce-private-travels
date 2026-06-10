@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import TrustBar from '../components/TrustBar.astro';
 import EstimateForm from '../components/EstimateForm';
+import CoverageMap from '../components/CoverageMap.astro';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -44,22 +45,54 @@ const mainSchema = {
       <EstimateForm client:load locations={locations || []} lang="en" />
     </div>
     
+    <div class="mt-24 mb-16 text-left max-w-5xl mx-auto">
+      <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">Why Choose EuroDrive</h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Direct Pricing</h4>
+          <p class="text-sm text-slate-600 font-medium">No agency commissions. You deal directly with the operator fleet.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Door-to-Door Service</h4>
+          <p class="text-sm text-slate-600 font-medium">Direct pickup and destination delivery without tedious transfers.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Flexible Stops</h4>
+          <p class="text-sm text-slate-600 font-medium">Optional breaks, coffee stops, and sightseeing during long-distance journeys.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Multilingual Drivers</h4>
+          <p class="text-sm text-slate-600 font-medium">English, German, and Hungarian speaking professional chauffeurs.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Fixed Price Agreement</h4>
+          <p class="text-sm text-slate-600 font-medium">No hidden charges. The quote we agree upon is the final price.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <h4 class="font-black text-lg text-slate-900 mb-2">Real Human Support</h4>
+          <p class="text-sm text-slate-600 font-medium">Direct communication via WhatsApp. No automated chatbots.</p>
+        </div>
+      </div>
+    </div>
+
+    <CoverageMap />
+
     <div class="mt-20 mb-16 text-left max-w-5xl mx-auto">
-      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Most Requested Routes</h3>
+      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Popular Routes</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           {p: 'Budapest', d: 'Vienna'},
           {p: 'Vienna', d: 'Budapest'},
+          {p: 'Budapest', d: 'Munich'},
+          {p: 'Vienna', d: 'Salzburg'},
           {p: 'Salzburg', d: 'Munich'},
-          {p: 'Munich', d: 'Salzburg'},
           {p: 'Budapest', d: 'Prague'},
           {p: 'Vienna', d: 'Prague'},
-          {p: 'Berlin', d: 'Dresden'},
           {p: 'Frankfurt', d: 'Cologne'}
         ].map(route => {
           const routeSlug = `${route.p.toLowerCase()}-to-${route.d.toLowerCase()}`.replace(/\s+/g, '-');
           return (
-            <a href={`/ce-private-travels/routes/${routeSlug}`} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
+            <a href={`/routes/${routeSlug}`} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
               <span class="text-xs text-slate-400 block mb-1">From {route.p}</span>
               To {route.d}
             </a>
