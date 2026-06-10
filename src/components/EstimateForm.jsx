@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -27,9 +27,44 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
   const [pickupFocus, setPickupFocus] = useState(false);
   const [destFocus, setDestFocus] = useState(false);
   
+  const [customPickup, setCustomPickup] = useState([]);
+  const [customDest, setCustomDest] = useState([]);
+  
   const [fields, setFields] = useState({
-    pickup: initialPickup, destination: initialDestination, fleet: 'Sedan', pax: '1', name: '', phone: '', datetime: '', budget: '', requests: '', quoteFile: null
+    pickup: initialPickup, pickupCoords: null,
+    destination: initialDestination, destCoords: null,
+    fleet: 'Sedan', pax: '1', name: '', phone: '', datetime: '', budget: '', requests: '', quoteFile: null
   });
+
+  useEffect(() => {
+    if (fields.pickup.length < 3) { setCustomPickup([]); return; }
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(fields.pickup)}&limit=5`);
+        const data = await res.json();
+        if (data.features) {
+          const filtered = data.features.filter(f => ['AT', 'DE', 'HU'].includes(f.properties.countrycode));
+          setCustomPickup(filtered.map(f => ({ name: f.properties.name, city: f.properties.city || f.properties.state, country: f.properties.country, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], id: f.properties.osm_id })));
+        }
+      } catch (e) {}
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [fields.pickup]);
+
+  useEffect(() => {
+    if (fields.destination.length < 3) { setCustomDest([]); return; }
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(fields.destination)}&limit=5`);
+        const data = await res.json();
+        if (data.features) {
+          const filtered = data.features.filter(f => ['AT', 'DE', 'HU'].includes(f.properties.countrycode));
+          setCustomDest(filtered.map(f => ({ name: f.properties.name, city: f.properties.city || f.properties.state, country: f.properties.country, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], id: f.properties.osm_id })));
+        }
+      } catch (e) {}
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [fields.destination]);
 
   const uiText = {
     en: { title1: "1. Calculate Pricing Range", title2: "2. Confirm via WhatsApp", labelPick: "Pickup Address/City", labelDest: "Destination Address/City", labelFleet: "Vehicle Class", labelPax: "Passengers", labelBudget: "Target Budget (Optional)", labelReq: "Special Requests (Optional)", labelFile: "Upload Competitor Quote (Optional)", btnCalc: "Calculate Fare Estimate", btnSubmit: "Lock Price via WhatsApp", subText: "Average response: 12 minutes. No upfront automated credit card charges.", customTitle: "Custom Route Detected", customDesc: "We provide private transfers between ANY city in Europe. Your route requires manual pricing by an operator." },
@@ -43,7 +78,7 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
     const known = locations.find(l => l.city.toLowerCase() === query.trim().toLowerCase());
     if (known) return { lat: known.latitude, lon: known.longitude };
     try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=at,de,hu&limit=1`);
       const data = await res.json();
       if (data && data.length > 0) return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
     } catch (err) {
@@ -60,8 +95,11 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
     }
 
     setIsCalculating(true);
-    const p1 = await fetchCoordinates(fields.pickup);
-    const p2 = await fetchCoordinates(fields.destination);
+    let p1 = fields.pickupCoords;
+    if (!p1) p1 = await fetchCoordinates(fields.pickup);
+
+    let p2 = fields.destCoords;
+    if (!p2) p2 = await fetchCoordinates(fields.destination);
 
     if (p1 && p2) {
       const distance = computeHaversineDistanceKM(p1.lat, p1.lon, p2.lat, p2.lon);
@@ -145,22 +183,32 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
 
           <div className="relative">
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelPick}</label>
-            <input type="text" value={fields.pickup} onChange={e => setFields({...fields, pickup: e.target.value})} onFocus={() => setPickupFocus(true)} onBlur={() => setTimeout(() => setPickupFocus(false), 200)} placeholder="e.g. Vienna Airport, Hilton Budapest" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autocomplete="off" />
+            <input type="text" value={fields.pickup} onChange={e => setFields({...fields, pickup: e.target.value, pickupCoords: null})} onFocus={() => setPickupFocus(true)} onBlur={() => setTimeout(() => setPickupFocus(false), 200)} placeholder="e.g. Vienna Airport, Hilton Budapest" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autoComplete="off" />
             {pickupFocus && (
-              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-48 overflow-y-auto">
+              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-60 overflow-y-auto">
+                <li className="px-4 py-2 text-xs font-bold text-slate-400 bg-slate-50 uppercase tracking-widest">Major Cities</li>
                 {locations.filter(l => l.city.toLowerCase().includes(fields.pickup.toLowerCase())).map(l => (
-                  <li key={l.id} onMouseDown={() => setFields({...fields, pickup: l.city})} className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700">{l.city}</li>
+                  <li key={l.id} onMouseDown={() => setFields({...fields, pickup: l.city, pickupCoords: {lat: l.latitude, lon: l.longitude}})} className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700 border-b border-slate-50">{l.city} <span className="text-slate-400 font-normal text-xs ml-1">{l.country_code}</span></li>
+                ))}
+                {customPickup.length > 0 && <li className="px-4 py-2 text-xs font-bold text-slate-400 bg-slate-50 uppercase tracking-widest border-t border-slate-100">Specific Addresses</li>}
+                {customPickup.map(c => (
+                  <li key={`p-${c.id}`} onMouseDown={() => setFields({...fields, pickup: `${c.name}, ${c.city}`, pickupCoords: {lat: c.lat, lon: c.lon}})} className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700 border-b border-slate-50">{c.name} <span className="text-slate-400 font-normal text-xs ml-1">{c.city}, {c.country}</span></li>
                 ))}
               </ul>
             )}
           </div>
           <div className="relative">
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelDest}</label>
-            <input type="text" value={fields.destination} onChange={e => setFields({...fields, destination: e.target.value})} onFocus={() => setDestFocus(true)} onBlur={() => setTimeout(() => setDestFocus(false), 200)} placeholder="e.g. Salzburg, Prague" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autocomplete="off" />
+            <input type="text" value={fields.destination} onChange={e => setFields({...fields, destination: e.target.value, destCoords: null})} onFocus={() => setDestFocus(true)} onBlur={() => setTimeout(() => setDestFocus(false), 200)} placeholder="e.g. Salzburg, Prague" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" autoComplete="off" />
             {destFocus && (
-              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-48 overflow-y-auto">
+              <ul className="absolute z-20 w-full bg-white border border-slate-200 rounded-xl mt-1 shadow-lg max-h-60 overflow-y-auto">
+                <li className="px-4 py-2 text-xs font-bold text-slate-400 bg-slate-50 uppercase tracking-widest">Major Cities</li>
                 {locations.filter(l => l.city.toLowerCase().includes(fields.destination.toLowerCase())).map(l => (
-                  <li key={l.id} onMouseDown={() => setFields({...fields, destination: l.city})} className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700">{l.city}</li>
+                  <li key={l.id} onMouseDown={() => setFields({...fields, destination: l.city, destCoords: {lat: l.latitude, lon: l.longitude}})} className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700 border-b border-slate-50">{l.city} <span className="text-slate-400 font-normal text-xs ml-1">{l.country_code}</span></li>
+                ))}
+                {customDest.length > 0 && <li className="px-4 py-2 text-xs font-bold text-slate-400 bg-slate-50 uppercase tracking-widest border-t border-slate-100">Specific Addresses</li>}
+                {customDest.map(c => (
+                  <li key={`d-${c.id}`} onMouseDown={() => setFields({...fields, destination: `${c.name}, ${c.city}`, destCoords: {lat: c.lat, lon: c.lon}})} className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm font-semibold text-slate-700 border-b border-slate-50">{c.name} <span className="text-slate-400 font-normal text-xs ml-1">{c.city}, {c.country}</span></li>
                 ))}
               </ul>
             )}
