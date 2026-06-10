@@ -73,7 +73,7 @@ export default function EstimateForm({ locations = [], lang = 'en' }) {
 
     if (!error) {
       const msg = `Hi EuroDrive! I requested an estimate (€${rangeDisplay.min} - €${rangeDisplay.max}) from ${fields.pickup} to ${fields.destination} on ${fields.datetime}. Name: ${fields.name}. Send me your best offer!`;
-      window.location.href = `https://wa.me/36301234567?text=${encodeURIComponent(msg)}`;
+      window.location.href = `https://wa.me/36308285603?text=${encodeURIComponent(msg)}`;
     } else {
       alert("Database serialization error. Connection dropped.");
       setIsSubmitting(false);
