@@ -23,11 +23,24 @@ export default function LeadsView({ supabase }) {
   const updateLeadStatus = async (id, newStatus) => {
     const updateData = { current_status: newStatus };
     if (newStatus === 'Contacted') updateData.first_contacted_at = new Date().toISOString();
-    if (newStatus === 'Booked') updateData.booked_at = new Date().toISOString();
-    if (newStatus === 'Completed') updateData.completed_at = new Date().toISOString();
+    
+    if (newStatus === 'Booked' || newStatus === 'Completed') {
+      const priceStr = prompt(`Enter final agreed price for this transfer (in EUR):`);
+      if (priceStr !== null && priceStr.trim() !== '' && !isNaN(priceStr)) {
+        updateData.final_price = Number(priceStr);
+      }
+      if (newStatus === 'Booked') updateData.booked_at = new Date().toISOString();
+      if (newStatus === 'Completed') updateData.completed_at = new Date().toISOString();
+    }
 
+    if (newStatus === 'Lost') {
+      const reason = prompt(`Enter reason for lost lead (e.g., Too expensive, Competitor):`);
+      if (reason) updateData.lost_reason = reason;
+    }
+
+    setLoading(true);
     await supabase.from('leads').update(updateData).eq('id', id);
-    fetchLeads();
+    await fetchLeads();
   };
 
   return (
