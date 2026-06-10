@@ -18,6 +18,30 @@ export default function FleetView({ supabase }) {
     fetchFleet();
   }, [supabase]);
 
+  const handleAddDriver = async () => {
+    const name = prompt("Enter driver's full name:");
+    if (!name) return;
+    const phone = prompt("Enter driver's phone number:");
+    if (!phone) return;
+    
+    setLoading(true);
+    await supabase.from('drivers').insert([{ full_name: name, phone_number: phone }]);
+    fetchFleet();
+  };
+
+  const handleAddVehicle = async () => {
+    const name = prompt("Enter vehicle model (e.g., Mercedes V-Class):");
+    if (!name) return;
+    const type = prompt("Enter vehicle category (Premium Sedan, Luxury Van, Executive Minibus):", "Luxury Van");
+    if (!type) return;
+    const reg = prompt("Enter license plate:");
+    if (!reg) return;
+
+    setLoading(true);
+    await supabase.from('vehicles').insert([{ vehicle_name: name, vehicle_type: type, registration_number: reg }]);
+    fetchFleet();
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -29,7 +53,7 @@ export default function FleetView({ supabase }) {
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-black text-indigo-900">Active Drivers</h3>
-            <button className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg hover:bg-indigo-100 transition">+ Add Driver</button>
+            <button onClick={handleAddDriver} className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg hover:bg-indigo-100 transition">+ Add Driver</button>
           </div>
           {loading ? (
              <p className="text-sm text-slate-500 font-medium text-center py-8">Syncing...</p>
@@ -55,7 +79,7 @@ export default function FleetView({ supabase }) {
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-black text-indigo-900">Fleet Inventory</h3>
-            <button className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg hover:bg-indigo-100 transition">+ Add Vehicle</button>
+            <button onClick={handleAddVehicle} className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg hover:bg-indigo-100 transition">+ Add Vehicle</button>
           </div>
           {loading ? (
              <p className="text-sm text-slate-500 font-medium text-center py-8">Syncing...</p>
