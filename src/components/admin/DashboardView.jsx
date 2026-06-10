@@ -31,7 +31,7 @@ export default function DashboardView({ supabase }) {
         leads.forEach(lead => {
           if (lead.current_status === 'New') newL++;
           
-          if (lead.final_price) {
+          if (lead.final_price && (lead.current_status === 'Booked' || lead.current_status === 'Completed')) {
             revenue += Number(lead.final_price);
             totalBookingValue += Number(lead.final_price);
             bookedCount++;
