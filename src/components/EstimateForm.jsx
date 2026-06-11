@@ -67,9 +67,9 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
   }, [fields.destination]);
 
   const uiText = {
-    en: { title1: "1. Calculate Pricing Range", title2: "2. Confirm via WhatsApp", labelPick: "Pickup Address/City", labelDest: "Destination Address/City", labelFleet: "Vehicle Class", labelPax: "Passengers", labelBudget: "Target Budget (Optional)", labelReq: "Special Requests (Optional)", labelFile: "Upload Competitor Quote (Optional)", btnCalc: "Calculate Fare Estimate", btnSubmit: "Lock Price via WhatsApp", subText: "Average response: 12 minutes. No upfront automated credit card charges.", customTitle: "Custom Route Detected", customDesc: "We provide private transfers between ANY city in Europe. Your route requires manual pricing by an operator." },
-    de: { title1: "1. Preisspanne Berechnen", title2: "2. Per WhatsApp Bestätigen", labelPick: "Abholadresse/Stadt", labelDest: "Zieladresse/Stadt", labelFleet: "Fahrzeugklasse", labelPax: "Fahrgäste", labelBudget: "Zielbudget (Optional)", labelReq: "Sonderwünsche (Optional)", labelFile: "Mitbewerberangebot hochladen", btnCalc: "Fahrpreis Schätzen", btnSubmit: "Preis via WhatsApp Sichern", subText: "Durchschnittliche Antwortzeit: 12 Min. Keine automatischen Vorauszahlungen.", customTitle: "Individuelle Route", customDesc: "Wir bieten Transfers zwischen ALLEN europäischen Städten an. Diese Route wird manuell kalkuliert." },
-    hu: { title1: "1. Árkalkuláció", title2: "2. Megerősítés WhatsApp-on", labelPick: "Indulási Cím/Város", labelDest: "Érkezési Cím/Város", labelFleet: "Gépjármű Kategória", labelPax: "Utasok Száma", labelBudget: "Tervezett Költségkeret (Opcionális)", labelReq: "Különleges Kérések (Opcionális)", labelFile: "Konkurens Árajánlat Feltöltése", btnCalc: "Becsült Ár Kiszámítása", btnSubmit: "Ár rögzítése WhatsApp-on", subText: "Átlagos válaszidő: 12 perc. Nincs automatikus bankkártya levonás.", customTitle: "Egyedi Útvonal", customDesc: "Bármely európai város között biztosítunk transzfert. Ezt az útvonalat manuálisan árazzuk be." }
+    en: { title1: "1. Calculate Pricing Range", title2: "2. Confirm via WhatsApp", labelPick: "Pickup Address/City", labelDest: "Destination Address/City", labelFleet: "Vehicle Class", labelPax: "Passengers", labelBudget: "Want the Best Price? (Optional)", budgetHelp: "Have a budget in mind or a quote from another company? Let us know. We review every request personally and will always try to provide our most competitive offer.", labelReq: "Special Requests (Optional)", labelFile: "Already Received Another Quote?", fileHelp: "Upload a screenshot, PDF or photo and we'll review it when preparing your offer.", btnCalc: "Calculate Fare Estimate", btnSubmit: "Get My Best Offer on WhatsApp", trust1: "✓ No obligation quote", trust2: "✓ Direct pricing — no agency commissions", trust3: "✓ Real person responds within minutes", subText: "Real person response • No obligation quote • Secure payment only after confirmation", customTitle: "Custom Route Detected", customDesc: "We provide private transfers between ANY city in Europe. Your route requires manual pricing by an operator." },
+    de: { title1: "1. Preisspanne Berechnen", title2: "2. Per WhatsApp Bestätigen", labelPick: "Abholadresse/Stadt", labelDest: "Zieladresse/Stadt", labelFleet: "Fahrzeugklasse", labelPax: "Fahrgäste", labelBudget: "Möchten Sie den besten Preis? (Optional)", budgetHelp: "Haben Sie ein Budget im Kopf oder ein Angebot einer anderen Firma? Lassen Sie es uns wissen. Wir prüfen jede Anfrage persönlich und versuchen immer, unser wettbewerbsfähigstes Angebot zu unterbreiten.", labelReq: "Sonderwünsche (Optional)", labelFile: "Haben Sie bereits ein anderes Angebot erhalten?", fileHelp: "Laden Sie einen Screenshot, ein PDF oder ein Foto hoch, und wir berücksichtigen es bei der Erstellung Ihres Angebots.", btnCalc: "Fahrpreis Schätzen", btnSubmit: "Mein bestes Angebot über WhatsApp erhalten", trust1: "✓ Unverbindliches Angebot", trust2: "✓ Direkte Preise — keine Agenturprovisionen", trust3: "✓ Echter Mensch antwortet in wenigen Minuten", subText: "Antwort von echten Menschen • Unverbindliches Angebot • Sichere Zahlung erst nach Bestätigung", customTitle: "Individuelle Route", customDesc: "Wir bieten Transfers zwischen ALLEN europäischen Städten an. Diese Route wird manuell kalkuliert." },
+    hu: { title1: "1. Árkalkuláció", title2: "2. Megerősítés WhatsApp-on", labelPick: "Indulási Cím/Város", labelDest: "Érkezési Cím/Város", labelFleet: "Gépjármű Kategória", labelPax: "Utasok Száma", labelBudget: "A legjobb árat szeretné? (Opcionális)", budgetHelp: "Van egy elképzelt kerete vagy kapott árajánlatot máshonnan? Tudassa velünk. Minden kérést személyesen megvizsgálunk, és mindig a legversenyképesebb ajánlatot próbáljuk adni.", labelReq: "Különleges Kérések (Opcionális)", labelFile: "Már kapott máshonnan árajánlatot?", fileHelp: "Töltsön fel egy képernyőfotót, PDF-et vagy képet, és mi figyelembe vesszük az ajánlat elkészítésekor.", btnCalc: "Becsült Ár Kiszámítása", btnSubmit: "Kérem a legjobb ajánlatot WhatsApp-on", trust1: "✓ Kötelezettségmentes árajánlat", trust2: "✓ Közvetlen árak — nincsenek ügynöki jutalékok", trust3: "✓ Valódi személy válaszol perceken belül", subText: "Valódi személy válaszol • Kötelezettségmentes ajánlat • Biztonságos fizetés csak visszaigazolás után", customTitle: "Egyedi Útvonal", customDesc: "Bármely európai város között biztosítunk transzfert. Ezt az útvonalat manuálisan árazzuk be." }
   }[lang];
 
   const rates = { Sedan: 0.55, Van: 0.78, Minibus: 0.98 };
@@ -274,29 +274,42 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
             <input type="datetime-local" required value={fields.datetime} onChange={e => setFields({...fields, datetime: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelBudget}</label>
+              <label className="block text-sm font-black text-indigo-950 mb-1">{uiText.labelBudget}</label>
+              <p className="text-xs text-slate-500 mb-2 leading-relaxed font-medium">{uiText.budgetHelp}</p>
               <div className="relative">
                 <span className="absolute left-4 top-3 text-slate-400 font-bold">€</span>
                 <input type="number" min="0" value={fields.budget} onChange={e => setFields({...fields, budget: e.target.value})} placeholder="0.00" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-semibold focus:outline-none focus:border-blue-500 transition" />
               </div>
             </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 line-clamp-1" title={uiText.labelFile}>{uiText.labelFile}</label>
-              <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-semibold focus:outline-none focus:border-blue-500 transition file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+            
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+              <label className="block text-sm font-black text-indigo-950 mb-1">{uiText.labelFile}</label>
+              <p className="text-xs text-slate-500 mb-3 leading-relaxed font-medium">{uiText.fileHelp}</p>
+              <input type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="w-full text-xs font-semibold focus:outline-none focus:border-blue-500 transition file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelReq}</label>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-4">{uiText.labelReq}</label>
             <textarea value={fields.requests} onChange={e => setFields({...fields, requests: e.target.value})} placeholder="Child seat, wheelchair access, extra luggage..." rows="2" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:border-blue-500 transition"></textarea>
           </div>
 
-          <button type="submit" disabled={isSubmitting} className={`w-full text-white font-black py-4 px-6 rounded-2xl shadow-lg transition tracking-tight text-sm mt-2 ${isSubmitting ? 'bg-slate-300 cursor-wait' : 'bg-green-600 hover:bg-green-700 shadow-green-600/20'}`}>
-            {isSubmitting ? 'Syncing Infrastructure...' : uiText.btnSubmit}
-          </button>
-          <p className="text-[11px] text-slate-400 text-center font-medium tracking-tight mt-3">{uiText.subText}</p>
+          <div className="pt-2">
+            <div className="bg-green-50/70 border border-green-100 rounded-xl p-4 mb-3">
+              <ul className="space-y-2 text-sm font-bold text-green-800">
+                <li className="flex items-center gap-2">{uiText.trust1}</li>
+                <li className="flex items-center gap-2">{uiText.trust2}</li>
+                <li className="flex items-center gap-2">{uiText.trust3}</li>
+              </ul>
+            </div>
+            
+            <button type="submit" disabled={isSubmitting} className={`w-full text-white font-black py-4 px-6 rounded-2xl shadow-lg transition tracking-tight text-sm ${isSubmitting ? 'bg-slate-300 cursor-wait' : 'bg-[#25D366] hover:bg-[#1ebd5a] shadow-green-600/30'}`}>
+              {isSubmitting ? 'Syncing Infrastructure...' : uiText.btnSubmit}
+            </button>
+            <p className="text-xs text-slate-400 text-center font-medium tracking-tight mt-4">{uiText.subText}</p>
+          </div>
         </form>
       )}
     </div>
