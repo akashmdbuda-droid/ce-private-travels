@@ -216,7 +216,13 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelFleet}</label>
-              <select value={fields.fleet} onChange={e => setFields({...fields, fleet: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
+              <select value={fields.fleet} onChange={e => {
+                const newFleet = e.target.value;
+                const maxPax = newFleet === 'Sedan' ? 4 : newFleet === 'Van' ? 8 : 16;
+                let currentPax = parseInt(fields.pax);
+                if (currentPax > maxPax) currentPax = maxPax;
+                setFields({...fields, fleet: newFleet, pax: currentPax.toString()});
+              }} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
                 <option value="Sedan">Premium Sedan</option>
                 <option value="Van">Luxury Van</option>
                 <option value="Minibus">Executive Minibus</option>
@@ -225,7 +231,7 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{uiText.labelPax}</label>
               <select value={fields.pax} onChange={e => setFields({...fields, pax: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm font-semibold focus:outline-none focus:border-blue-500 transition">
-                {[1,2,3,4,5,6,7,8,9,10,12,14,16].map(v => <option key={v} value={v}>{v}</option>)}
+                {(fields.fleet === 'Sedan' ? [1,2,3,4] : fields.fleet === 'Van' ? [1,2,3,4,5,6,7,8] : [1,2,3,4,5,6,7,8,9,10,12,14,16]).map(v => <option key={v} value={v}>{v}</option>)}
               </select>
             </div>
           </div>
