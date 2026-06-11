@@ -19,7 +19,7 @@ const mainSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "EuroDrive Private Transfers",
-  "description": "Premium private cross-border driver networks linking Hungary, Austria, and Germany directly.",
+  "description": "Prémium magán transzfer szolgáltatások Magyarország, Ausztria és Németország között.",
   "telephone": "+36301234567",
   "priceRange": "EUR",
   "address": {
@@ -29,48 +29,48 @@ const mainSchema = {
   }
 };
 ---
-<Layout title="Premium Private Intercity Transfers | EuroDrive" description="Door-to-door luxury private driver networks across Hungary, Austria, and Germany. Calculate real pricing ranges instantly and secure execution via WhatsApp." lang="de" slug="de">
+<Layout title="Prémium Magán Transzfer | EuroDrive" description="Háztól-házig prémium sofőrszolgálat Magyarország, Ausztria és Németország között. Kalkulálja ki az árat azonnal, rejtett költségek nélkül." lang="hu" slug="hu">
   <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
 
   <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
-    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Direkter Europäischer Fahrdienst</span>
+    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Közvetlen Európai Személyszállítás</span>
     <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
-      Private Fernfahrten ohne versteckte Agenturgebühren
+      Magán Transzferek Rejtett Közvetítői Díjak Nélkül
     </h1>
     <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
-      Reisen Sie erstklassig von Tür zu Tür zwischen Ungarn, Österreich und Deutschland. Zuverlässige mehrsprachige Chauffeure und moderne Premium-Fahrzeuge stehen für Sie bereit.
+      Tapasztalja meg a közvetlen háztól-házig utazást Magyarország, Ausztria és Németország között. Prémium gépjárműflotta és többnyelvű, tapasztalt sofőrök várják.
     </p>
 
     <div class="mb-16">
-      <EstimateForm client:load locations={locations || []} lang="de" />
+      <EstimateForm client:load locations={locations || []} lang="hu" />
     </div>
     
     <div class="mt-24 mb-16 text-left max-w-5xl mx-auto">
-      <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">Warum EuroDrive Wählen?</h3>
+      <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">Miért válassza az EuroDrive-ot?</h3>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Direkte Preise</h4>
-          <p class="text-sm text-slate-600 font-medium">Keine Agenturprovisionen. Sie buchen direkt beim Fahrer.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Közvetlen Árazás</h4>
+          <p class="text-sm text-slate-600 font-medium">Nincsenek ügynökségi jutalékok. Közvetlenül a sofőrtől rendel.</p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Tür-zu-Tür Service</h4>
-          <p class="text-sm text-slate-600 font-medium">Direkte Abholung und Fahrt ans Ziel ohne mühsames Umsteigen.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Háztól-Házig Szolgáltatás</h4>
+          <p class="text-sm text-slate-600 font-medium">Közvetlen felvétel és érkezés, hosszas átszállások nélkül.</p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Flexible Pausen</h4>
-          <p class="text-sm text-slate-600 font-medium">Optionale Pausen, Kaffeestopps und Sightseeing während langer Fahrten.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Rugalmas Megállók</h4>
+          <p class="text-sm text-slate-600 font-medium">Opcionális kávészünetek és városnézés a hosszú távú utazások során.</p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Mehrsprachige Fahrer</h4>
-          <p class="text-sm text-slate-600 font-medium">Professionelle Chauffeure, die Englisch, Deutsch und Ungarisch sprechen.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Többnyelvű Sofőrök</h4>
+          <p class="text-sm text-slate-600 font-medium">Angolul, németül és magyarul beszélő profi sofőrök.</p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Fester Preis</h4>
-          <p class="text-sm text-slate-600 font-medium">Keine versteckten Kosten. Das vereinbarte Angebot ist der Endpreis.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Fix Ár Garancia</h4>
+          <p class="text-sm text-slate-600 font-medium">Nincsenek rejtett költségek. A megegyezett ár a végső összeg.</p>
         </div>
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-          <h4 class="font-black text-lg text-slate-900 mb-2">Echter Menschlicher Support</h4>
-          <p class="text-sm text-slate-600 font-medium">Direkte Kommunikation über WhatsApp. Keine automatisierten Chatbots.</p>
+          <h4 class="font-black text-lg text-slate-900 mb-2">Valódi Emberi Támogatás</h4>
+          <p class="text-sm text-slate-600 font-medium">Közvetlen kommunikáció WhatsApp-on keresztül automatikus chatbotok nélkül.</p>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ const mainSchema = {
     <CoverageMap />
 
     <div class="mt-20 mb-16 text-left max-w-5xl mx-auto">
-      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Beliebte Routen</h3>
+      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Népszerű Útvonalak</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           {p: 'Budapest', d: 'Vienna'},
@@ -93,14 +93,14 @@ const mainSchema = {
           const routeSlug = `${route.p.toLowerCase()}-to-${route.d.toLowerCase()}`.replace(/\s+/g, '-');
           return (
             <a href={`${import.meta.env.BASE_URL}/routes/${routeSlug}`.replace(/\/\//g, '/')} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
-              <span class="text-xs text-slate-400 block mb-1">Von {route.p}</span>
-              Nach {route.d}
+              <span class="text-xs text-slate-400 block mb-1">Honnan: {route.p}</span>
+              Hova: {route.d}
             </a>
           );
         })}
       </div>
     </div>
 
-    <TrustBar lang="de" />
+    <TrustBar lang="hu" />
   </section>
 </Layout>
