@@ -11,6 +11,12 @@ const { title, description, lang, slug, schema } = Astro.props;
 const siteUrl = 'https://eurodrive-transfers.com';
 const cleanSlug = slug.replace(/^\/|\/$/g, '');
 const canonicalUrl = `${siteUrl}${lang === 'en' ? '' : '/' + lang}/${cleanSlug}`;
+
+const translations = {
+  en: { wa: "Get My Quote on WhatsApp" },
+  de: { wa: "Mein Angebot über WhatsApp erhalten" },
+  hu: { wa: "Kérem az ajánlatot WhatsApp-on" }
+};
 ---
 
 <!DOCTYPE html>
