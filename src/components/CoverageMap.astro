@@ -9,12 +9,20 @@ const supabase = createClient(
 const { data: locations } = await supabase
   .from('locations')
   .select('city, latitude, longitude, country_code');
+
+const { lang } = Astro.props;
+const translations = {
+  en: { title: "Where We Drive" },
+  de: { title: "Wo Wir Fahren" },
+  hu: { title: "Hol Szolgáltatunk" }
+};
+const t = translations[lang] || translations['en'];
 ---
 
 <div class="w-full max-w-5xl mx-auto my-16 px-6">
-  <div class="text-center mb-8">
-    <h3 class="text-3xl font-black text-indigo-950">Where We Drive</h3>
-    <p class="text-slate-500 font-medium mt-2">Serving Hungary, Austria, and Germany</p>
+  <div class="mt-24 mb-8 text-center max-w-4xl mx-auto">
+  <h3 class="text-3xl font-black text-indigo-950 mb-4">{t.title}</h3>
+  <p class="text-slate-600 font-semibold mb-10 max-w-2xl mx-auto">Any city, airport, hotel or address across Hungary, Austria and Germany.</p>
   </div>
   
   <div class="bg-white border border-slate-200 p-2 rounded-3xl shadow-xl">

@@ -1,0 +1,22 @@
+---
+const { lang } = Astro.props;
+const translations = {
+  en: { rated: "★★★★★ Rated by travelers", trips: "1,200+ Transfers Completed", resp: "Avg Response: 12 Minutes", cov: "HU • AT • DE Coverage" },
+  de: { rated: "★★★★★ Von Reisenden bewertet", trips: "1.200+ Abgeschlossene Transfers", resp: "Ø Antwortzeit: 12 Min", cov: "HU • AT • DE Abdeckung" },
+  hu: { rated: "★★★★★ Utasok által értékelve", trips: "1,200+ Sikeres Transzfer", resp: "Átl. válaszidő: 12 perc", cov: "HU • AT • DE Lefedettség" }
+};
+const t = translations[lang] || translations['en'];
+---
+
+<div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-4 md:gap-8 mt-6 mb-12 text-xs md:text-sm font-bold text-slate-500">
+  <span class="flex items-center gap-2">
+    <span class="text-yellow-400 text-lg tracking-widest leading-none">★★★★★</span>
+    <span class="mt-0.5">{t.rated.replace('★★★★★ ', '')}</span>
+  </span>
+  <span class="hidden md:inline text-slate-300">•</span>
+  <span>{t.trips}</span>
+  <span class="hidden md:inline text-slate-300">•</span>
+  <span>{t.resp}</span>
+  <span class="hidden md:inline text-slate-300">•</span>
+  <span class="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">{t.cov}</span>
+</div>

@@ -1,0 +1,51 @@
+---
+const { lang } = Astro.props;
+const translations = {
+  en: { title: "Frequently Asked Questions" },
+  de: { title: "Häufig Gestellte Fragen" },
+  hu: { title: "Gyakran Ismételt Kérdések" }
+};
+const t = translations[lang] || translations['en'];
+
+const faqs = [
+  { q: "Can I travel from Budapest to Germany?", a: "Yes. We offer direct door-to-door private transfers between any cities in Hungary, Austria, and Germany." },
+  { q: "Do you offer airport pickups?", a: "Yes. Our drivers will meet you directly at the arrivals hall with a name sign, and flight tracking is included free of charge." },
+  { q: "Are highway tolls included in the price?", a: "Yes. All highway tolls, fuel, and driver expenses are included in your fixed final quote." },
+  { q: "Can I request child seats?", a: "Yes. We provide infant, toddler, and booster seats upon request at no additional charge." },
+  { q: "Do you serve cities not listed on the website?", a: "Yes. Our routing engine covers every address, hotel, and airport within Hungary, Austria, and Germany." }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+---
+
+<div class="mt-20 mb-16 max-w-3xl mx-auto">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">{t.title}</h3>
+  
+  <div class="space-y-4">
+    {faqs.map(faq => (
+      <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+        <summary class="flex justify-between items-center font-bold text-slate-900 p-6 cursor-pointer hover:bg-slate-50 transition">
+          {faq.q}
+          <span class="transition group-open:-rotate-180 text-indigo-600">
+            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="px-6 pb-6 text-slate-600 font-medium text-sm leading-relaxed border-t border-slate-100 pt-4">
+          {faq.a}
+        </div>
+      </details>
+    ))}
+  </div>
+</div>

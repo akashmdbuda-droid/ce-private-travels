@@ -1,0 +1,32 @@
+---
+const { lang } = Astro.props;
+const translations = {
+  en: { title: "What Travelers Say" },
+  de: { title: "Was Reisende sagen" },
+  hu: { title: "Utasaink Véleménye" }
+};
+const t = translations[lang] || translations['en'];
+
+const reviews = [
+  { name: "Michael T.", route: "Budapest → Vienna", text: "Excellent transfer. Driver arrived 10 minutes early, the car was spotless, and communication via WhatsApp was flawless." },
+  { name: "Sarah L.", route: "Vienna → Salzburg", text: "Saved us from dealing with train delays. The direct door-to-door service is worth every penny for the peace of mind." },
+  { name: "David K.", route: "Munich → Budapest", text: "Long distance drive but very comfortable. We requested a coffee stop halfway and the driver was extremely accommodating." }
+];
+---
+
+<div class="mt-20 mb-16 max-w-5xl mx-auto">
+  <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center md:text-left">{t.title}</h3>
+  
+  <div class="grid md:grid-cols-3 gap-6">
+    {reviews.map(r => (
+      <div class="bg-indigo-50/50 p-8 rounded-2xl border border-indigo-100">
+        <div class="flex text-yellow-400 text-sm mb-4">★★★★★</div>
+        <p class="text-slate-700 font-medium leading-relaxed italic mb-6">"{r.text}"</p>
+        <div>
+          <p class="font-black text-indigo-950 text-sm">{r.name}</p>
+          <p class="text-xs font-bold text-slate-500 mt-1">{r.route}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

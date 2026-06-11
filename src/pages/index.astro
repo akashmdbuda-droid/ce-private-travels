@@ -1,8 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TrustBar from '../components/TrustBar.astro';
+import TrustStrip from '../components/TrustStrip.astro';
 import EstimateForm from '../components/EstimateForm';
 import CoverageMap from '../components/CoverageMap.astro';
+import RouteReassurance from '../components/RouteReassurance.astro';
+import DriverPreview from '../components/DriverPreview.astro';
+import FleetPreview from '../components/FleetPreview.astro';
+import Reviews from '../components/Reviews.astro';
+import FAQ from '../components/FAQ.astro';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -32,20 +38,22 @@ const mainSchema = {
 <Layout title="Premium Private Intercity Transfers | EuroDrive" description="Door-to-door luxury private driver networks across Hungary, Austria, and Germany. Calculate real pricing ranges instantly and secure execution via WhatsApp." lang="en" slug="">
   <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
 
-  <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
+  <section class="max-w-6xl mx-auto px-6 py-12 md:py-20 text-center">
     <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Direct European Carrier</span>
     <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
-      Private Trans-Border Journeys Free From Agency Markups
+      Private Transfers Across Hungary, Austria & Germany
     </h1>
-    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
-      Experience door-to-door tracking absolute priority travel across Hungary, Austria, and Germany. Complete executive fleet options driven by multilingual route experts.
+    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-6 font-medium">
+      Direct pricing, multilingual drivers, and personal WhatsApp support. Get your best quote in minutes.
     </p>
 
-    <div class="mb-16">
+    <TrustStrip lang="en" />
+
+    <div class="mb-20 max-w-5xl mx-auto">
       <EstimateForm client:load locations={locations || []} lang="en" />
     </div>
     
-    <div class="mt-24 mb-16 text-left max-w-5xl mx-auto">
+    <div class="mt-24 mb-20 text-left max-w-5xl mx-auto">
       <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">Why Choose EuroDrive</h3>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
@@ -75,31 +83,39 @@ const mainSchema = {
       </div>
     </div>
 
-    <CoverageMap />
+    <CoverageMap lang="en" />
 
-    <div class="mt-20 mb-16 text-left max-w-5xl mx-auto">
-      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Popular Routes</h3>
+    <RouteReassurance lang="en" />
+
+    <div class="mt-20 mb-20 text-left max-w-5xl mx-auto">
+      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Most Requested Transfers</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          {p: 'Budapest', d: 'Vienna'},
-          {p: 'Vienna', d: 'Budapest'},
-          {p: 'Budapest', d: 'Munich'},
-          {p: 'Vienna', d: 'Salzburg'},
-          {p: 'Salzburg', d: 'Munich'},
-          {p: 'Budapest', d: 'Prague'},
-          {p: 'Vienna', d: 'Prague'},
-          {p: 'Frankfurt', d: 'Cologne'}
+          {p: 'Budapest', d: 'Vienna', price: 'From €150'},
+          {p: 'Vienna', d: 'Budapest', price: 'From €150'},
+          {p: 'Budapest', d: 'Munich', price: 'From €450'},
+          {p: 'Vienna', d: 'Salzburg', price: 'From €220'},
+          {p: 'Salzburg', d: 'Munich', price: 'From €180'},
+          {p: 'Budapest', d: 'Prague', price: 'From €380'},
+          {p: 'Vienna', d: 'Prague', price: 'From €260'},
+          {p: 'Frankfurt', d: 'Cologne', price: 'From €190'}
         ].map(route => {
           const routeSlug = `${route.p.toLowerCase()}-to-${route.d.toLowerCase()}`.replace(/\s+/g, '-');
           return (
             <a href={`${import.meta.env.BASE_URL}/routes/${routeSlug}`.replace(/\/\//g, '/')} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
               <span class="text-xs text-slate-400 block mb-1">From {route.p}</span>
-              To {route.d}
+              <span class="block mb-2 text-base">To {route.d}</span>
+              <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded">{route.price}</span>
             </a>
           );
         })}
       </div>
     </div>
+
+    <DriverPreview lang="en" />
+    <FleetPreview lang="en" />
+    <Reviews lang="en" />
+    <FAQ lang="en" />
 
     <TrustBar lang="en" />
   </section>

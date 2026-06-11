@@ -1,8 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TrustBar from '../../components/TrustBar.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
 import EstimateForm from '../../components/EstimateForm';
 import CoverageMap from '../../components/CoverageMap.astro';
+import RouteReassurance from '../../components/RouteReassurance.astro';
+import DriverPreview from '../../components/DriverPreview.astro';
+import FleetPreview from '../../components/FleetPreview.astro';
+import Reviews from '../../components/Reviews.astro';
+import FAQ from '../../components/FAQ.astro';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -32,20 +38,22 @@ const mainSchema = {
 <Layout title="Prémium Magán Transzfer | EuroDrive" description="Háztól-házig prémium sofőrszolgálat Magyarország, Ausztria és Németország között. Kalkulálja ki az árat azonnal, rejtett költségek nélkül." lang="hu" slug="hu">
   <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
 
-  <section class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center">
+  <section class="max-w-6xl mx-auto px-6 py-12 md:py-20 text-center">
     <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Közvetlen Európai Személyszállítás</span>
     <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
-      Magán Transzferek Rejtett Közvetítői Díjak Nélkül
+      Magán Transzferek Magyarország, Ausztria és Németország Között
     </h1>
-    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-12 font-medium">
-      Tapasztalja meg a közvetlen háztól-házig utazást Magyarország, Ausztria és Németország között. Prémium gépjárműflotta és többnyelvű, tapasztalt sofőrök várják.
+    <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-6 font-medium">
+      Közvetlen árak, többnyelvű sofőrök és személyes WhatsApp ügyfélszolgálat. Kérje a legjobb ajánlatot perceken belül.
     </p>
 
-    <div class="mb-16">
+    <TrustStrip lang="hu" />
+
+    <div class="mb-20 max-w-5xl mx-auto">
       <EstimateForm client:load locations={locations || []} lang="hu" />
     </div>
     
-    <div class="mt-24 mb-16 text-left max-w-5xl mx-auto">
+    <div class="mt-24 mb-20 text-left max-w-5xl mx-auto">
       <h3 class="text-3xl font-black text-indigo-950 mb-10 text-center">Miért válassza az EuroDrive-ot?</h3>
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
@@ -75,31 +83,38 @@ const mainSchema = {
       </div>
     </div>
 
-    <CoverageMap />
+    <CoverageMap lang="hu" />
+    <RouteReassurance lang="hu" />
 
-    <div class="mt-20 mb-16 text-left max-w-5xl mx-auto">
-      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Népszerű Útvonalak</h3>
+    <div class="mt-20 mb-20 text-left max-w-5xl mx-auto">
+      <h3 class="text-2xl font-black text-indigo-950 mb-6 text-center md:text-left">Legkeresettebb Transzferek</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          {p: 'Budapest', d: 'Vienna'},
-          {p: 'Vienna', d: 'Budapest'},
-          {p: 'Budapest', d: 'Munich'},
-          {p: 'Vienna', d: 'Salzburg'},
-          {p: 'Salzburg', d: 'Munich'},
-          {p: 'Budapest', d: 'Prague'},
-          {p: 'Vienna', d: 'Prague'},
-          {p: 'Frankfurt', d: 'Cologne'}
+          {p: 'Budapest', d: 'Vienna', price: '150 €-tól'},
+          {p: 'Vienna', d: 'Budapest', price: '150 €-tól'},
+          {p: 'Budapest', d: 'Munich', price: '450 €-tól'},
+          {p: 'Vienna', d: 'Salzburg', price: '220 €-tól'},
+          {p: 'Salzburg', d: 'Munich', price: '180 €-tól'},
+          {p: 'Budapest', d: 'Prague', price: '380 €-tól'},
+          {p: 'Vienna', d: 'Prague', price: '260 €-tól'},
+          {p: 'Frankfurt', d: 'Cologne', price: '190 €-tól'}
         ].map(route => {
           const routeSlug = `${route.p.toLowerCase()}-to-${route.d.toLowerCase()}`.replace(/\s+/g, '-');
           return (
             <a href={`${import.meta.env.BASE_URL}/routes/${routeSlug}`.replace(/\/\//g, '/')} class="block bg-slate-50 border border-slate-100 hover:border-blue-300 hover:shadow-md transition-all rounded-xl p-4 text-sm font-semibold text-slate-700">
               <span class="text-xs text-slate-400 block mb-1">Honnan: {route.p}</span>
-              Hova: {route.d}
+              <span class="block mb-2 text-base">Hova: {route.d}</span>
+              <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded">{route.price}</span>
             </a>
           );
         })}
       </div>
     </div>
+
+    <DriverPreview lang="hu" />
+    <FleetPreview lang="hu" />
+    <Reviews lang="hu" />
+    <FAQ lang="hu" />
 
     <TrustBar lang="hu" />
   </section>
