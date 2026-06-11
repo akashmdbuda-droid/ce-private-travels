@@ -67,9 +67,9 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
   }, [fields.destination]);
 
   const uiText = {
-    en: { title1: "1. Calculate Pricing Range", title2: "2. Confirm via WhatsApp", labelPick: "Pickup Address/City", labelDest: "Destination Address/City", labelFleet: "Vehicle Class", labelPax: "Passengers", labelBudget: "Want the Best Price? (Optional)", budgetHelp: "Have a budget in mind or a quote from another company? Let us know. We review every request personally and will always try to provide our most competitive offer.", labelReq: "Special Requests (Optional)", labelFile: "Already Received Another Quote?", fileHelp: "Upload a screenshot, PDF or photo and we'll review it when preparing your offer.", btnCalc: "Calculate Fare Estimate", btnSubmit: "Get My Best Offer on WhatsApp", trust1: "✓ No obligation quote", trust2: "✓ Direct pricing — no agency commissions", trust3: "✓ Real person responds within minutes", subText: "Real person response • No obligation quote • Secure payment only after confirmation", customTitle: "Custom Route Detected", customDesc: "We provide private transfers between ANY city in Europe. Your route requires manual pricing by an operator." },
-    de: { title1: "1. Preisspanne Berechnen", title2: "2. Per WhatsApp Bestätigen", labelPick: "Abholadresse/Stadt", labelDest: "Zieladresse/Stadt", labelFleet: "Fahrzeugklasse", labelPax: "Fahrgäste", labelBudget: "Möchten Sie den besten Preis? (Optional)", budgetHelp: "Haben Sie ein Budget im Kopf oder ein Angebot einer anderen Firma? Lassen Sie es uns wissen. Wir prüfen jede Anfrage persönlich und versuchen immer, unser wettbewerbsfähigstes Angebot zu unterbreiten.", labelReq: "Sonderwünsche (Optional)", labelFile: "Haben Sie bereits ein anderes Angebot erhalten?", fileHelp: "Laden Sie einen Screenshot, ein PDF oder ein Foto hoch, und wir berücksichtigen es bei der Erstellung Ihres Angebots.", btnCalc: "Fahrpreis Schätzen", btnSubmit: "Mein bestes Angebot über WhatsApp erhalten", trust1: "✓ Unverbindliches Angebot", trust2: "✓ Direkte Preise — keine Agenturprovisionen", trust3: "✓ Echter Mensch antwortet in wenigen Minuten", subText: "Antwort von echten Menschen • Unverbindliches Angebot • Sichere Zahlung erst nach Bestätigung", customTitle: "Individuelle Route", customDesc: "Wir bieten Transfers zwischen ALLEN europäischen Städten an. Diese Route wird manuell kalkuliert." },
-    hu: { title1: "1. Árkalkuláció", title2: "2. Megerősítés WhatsApp-on", labelPick: "Indulási Cím/Város", labelDest: "Érkezési Cím/Város", labelFleet: "Gépjármű Kategória", labelPax: "Utasok Száma", labelBudget: "A legjobb árat szeretné? (Opcionális)", budgetHelp: "Van egy elképzelt kerete vagy kapott árajánlatot máshonnan? Tudassa velünk. Minden kérést személyesen megvizsgálunk, és mindig a legversenyképesebb ajánlatot próbáljuk adni.", labelReq: "Különleges Kérések (Opcionális)", labelFile: "Már kapott máshonnan árajánlatot?", fileHelp: "Töltsön fel egy képernyőfotót, PDF-et vagy képet, és mi figyelembe vesszük az ajánlat elkészítésekor.", btnCalc: "Becsült Ár Kiszámítása", btnSubmit: "Kérem a legjobb ajánlatot WhatsApp-on", trust1: "✓ Kötelezettségmentes árajánlat", trust2: "✓ Közvetlen árak — nincsenek ügynöki jutalékok", trust3: "✓ Valódi személy válaszol perceken belül", subText: "Valódi személy válaszol • Kötelezettségmentes ajánlat • Biztonságos fizetés csak visszaigazolás után", customTitle: "Egyedi Útvonal", customDesc: "Bármely európai város között biztosítunk transzfert. Ezt az útvonalat manuálisan árazzuk be." }
+    en: { title1: "1. Calculate Pricing Range", title2: "2. Confirm via WhatsApp", labelPick: "Pickup Address/City", labelDest: "Destination Address/City", labelFleet: "Vehicle Class", labelPax: "Passengers", labelBudget: "Want the Best Price? (Optional)", budgetHelp: "Have a budget in mind or a quote from another company? Let us know. We review every request personally and will always try to provide our most competitive offer.", labelReq: "Special Requests (Optional)", labelFile: "Already Received Another Quote?", fileHelp: "Upload a screenshot, PDF or photo and we'll review it when preparing your offer.", btnCalc: "Calculate Fare Estimate", btnSubmit: "Confirm on WhatsApp", trust1: "No payment required today", trust2: "Free quote & price discussion", trust3: "Average response: 12 minutes", subText: "Guaranteed response with availability and pricing within 30 minutes during business hours.", priceMatch: "Have a quote from another company? Send it to us on WhatsApp and we'll personally review it to see if we can beat it.", customTitle: "Custom Route Detected", customDesc: "We provide private transfers between ANY city in Europe. Your route requires manual pricing by an operator." },
+    de: { title1: "1. Preisspanne Berechnen", title2: "2. Per WhatsApp Bestätigen", labelPick: "Abholadresse/Stadt", labelDest: "Zieladresse/Stadt", labelFleet: "Fahrzeugklasse", labelPax: "Fahrgäste", labelBudget: "Möchten Sie den besten Preis? (Optional)", budgetHelp: "Haben Sie ein Budget im Kopf oder ein Angebot einer anderen Firma? Lassen Sie es uns wissen. Wir prüfen jede Anfrage persönlich und versuchen immer, unser wettbewerbsfähigstes Angebot zu unterbreiten.", labelReq: "Sonderwünsche (Optional)", labelFile: "Haben Sie bereits ein anderes Angebot erhalten?", fileHelp: "Laden Sie einen Screenshot, ein PDF oder ein Foto hoch, und wir berücksichtigen es bei der Erstellung Ihres Angebots.", btnCalc: "Fahrpreis Schätzen", btnSubmit: "Auf WhatsApp Bestätigen", trust1: "Heute keine Zahlung erforderlich", trust2: "Kostenloses Angebot & Preisdiskussion", trust3: "Durchschnittliche Antwortzeit: 12 Minuten", subText: "Garantierte Antwort mit Verfügbarkeit und Preis innerhalb von 30 Minuten während der Geschäftszeiten.", priceMatch: "Haben Sie ein Angebot einer anderen Firma? Senden Sie es uns auf WhatsApp und wir prüfen persönlich, ob wir es unterbieten können.", customTitle: "Individuelle Route", customDesc: "Wir bieten Transfers zwischen ALLEN europäischen Städten an. Diese Route wird manuell kalkuliert." },
+    hu: { title1: "1. Árkalkuláció", title2: "2. Megerősítés WhatsApp-on", labelPick: "Indulási Cím/Város", labelDest: "Érkezési Cím/Város", labelFleet: "Gépjármű Kategória", labelPax: "Utasok Száma", labelBudget: "A legjobb árat szeretné? (Opcionális)", budgetHelp: "Van egy elképzelt kerete vagy kapott árajánlatot máshonnan? Tudassa velünk. Minden kérést személyesen megvizsgálunk, és mindig a legversenyképesebb ajánlatot próbáljuk adni.", labelReq: "Különleges Kérések (Opcionális)", labelFile: "Már kapott máshonnan árajánlatot?", fileHelp: "Töltsön fel egy képernyőfotót, PDF-et vagy képet, és mi figyelembe vesszük az ajánlat elkészítésekor.", btnCalc: "Becsült Ár Kiszámítása", btnSubmit: "Megerősítés WhatsApp-on", trust1: "Ma nem szükséges fizetni", trust2: "Ingyenes ajánlat és áregyeztetés", trust3: "Átlagos válaszidő: 12 perc", subText: "Garantált válasz elérhetőséggel és árral 30 percen belül (munkaidőben).", priceMatch: "Kapott már árajánlatot máshonnan? Küldje el nekünk WhatsApp-on, és személyesen megvizsgáljuk, hogy tudunk-e jobbat adni.", customTitle: "Egyedi Útvonal", customDesc: "Bármely európai város között biztosítunk transzfert. Ezt az útvonalat manuálisan árazzuk be." }
   }[lang];
 
   const rates = { Sedan: 0.55, Van: 0.78, Minibus: 0.98 };
@@ -160,14 +160,20 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
     }]);
 
     if (!error) {
-      const priceText = rangeDisplay.min ? `an estimate (€${rangeDisplay.min} - €${rangeDisplay.max})` : `a custom quote`;
-      let msg = `Hi EuroDrive! I requested ${priceText} from ${fields.pickup} to ${fields.destination} on ${fields.datetime}. Name: ${fields.name}. Pax: ${fields.pax}.`;
-      if (fields.budget) msg += ` Budget: €${fields.budget}.`;
-      if (fields.requests) msg += ` Requests: ${fields.requests}.`;
-      if (quoteUrl) msg += ` Competitor Quote attached.`;
-      msg += ` Send me your best offer!`;
+      const priceText = rangeDisplay.min ? `*(Quote Estimate: €${rangeDisplay.min} - €${rangeDisplay.max})*` : `*(Custom Quote Required)*`;
+      let msg = `📋 *NEW TRANSFER INQUIRY*%0A%0A`;
+      msg += `*Route:* ${fields.pickup} → ${fields.destination}%0A`;
+      msg += `*Date:* ${fields.datetime.replace('T', ' ')}%0A`;
+      msg += `*Vehicle:* ${fields.fleet === 'Sedan' ? 'Premium Sedan' : fields.fleet === 'Van' ? 'Luxury Van' : 'Executive Minibus'}%0A`;
+      msg += `*Passengers:* ${fields.pax}%0A%0A`;
+      msg += `*Client Details:*%0A`;
+      msg += `*Name:* ${fields.name}%0A`;
+      if (fields.budget) msg += `*Target Budget:* €${fields.budget}%0A`;
+      if (fields.requests) msg += `%0A*Special Requests / Notes:*%0A${fields.requests}%0A`;
+      if (quoteUrl) msg += `%0A*Competitor Quote:* Attached file%0A`;
+      msg += `%0A${priceText}`;
 
-      window.location.href = `https://wa.me/36308285603?text=${encodeURIComponent(msg)}`;
+      window.location.href = `https://wa.me/36308285603?text=${msg}`;
     } else {
       alert("Database serialization error. Connection dropped.");
       setIsSubmitting(false);
@@ -238,21 +244,30 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
           <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-2xl shadow-lg shadow-blue-600/20 transition transform active:scale-95 text-center block text-sm tracking-tight mt-2">
             {uiText.btnCalc}
           </button>
+          <p className="text-center text-[11px] text-slate-400 font-medium px-4 mt-3">
+            {lang === 'de' ? "Ihre genaue Adresse ist nicht aufgeführt? Wir fahren an JEDE Adresse, jedes Hotel und jeden Flughafen in unseren Einsatzländern." : lang === 'hu' ? "Nem találja a pontos címet? BÁRMILYEN címre, szállodába vagy repülőtérre vállalunk fuvart a működési területeinken." : "Don't see your specific address? We service ANY address, hotel, or airport across our operating countries."}
+          </p>
         </form>
       ) : (
         <form onSubmit={handleFinalSubmit} className="space-y-4">
           {rangeDisplay.min ? (
-            <div className="bg-gradient-to-br from-blue-600 to-indigo-900 rounded-2xl p-6 text-center text-white shadow-inner mb-6">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-900 rounded-2xl p-6 text-center text-white shadow-inner mb-2">
               <p className="text-[10px] font-extrabold uppercase tracking-widest text-blue-200">Guaranteed Estimated Range</p>
               <p className="text-4xl font-black tracking-tight mt-1">€{rangeDisplay.min} — €{rangeDisplay.max}</p>
-              <p className="text-[11px] text-blue-100/70 mt-2">Includes border dynamic highway vignettes, direct fueling, and luggage configurations.</p>
             </div>
           ) : (
-            <div className="bg-gradient-to-br from-amber-500 to-orange-700 rounded-2xl p-6 text-center text-white shadow-inner mb-6">
+            <div className="bg-gradient-to-br from-amber-500 to-orange-700 rounded-2xl p-6 text-center text-white shadow-inner mb-2">
               <p className="text-[10px] font-extrabold uppercase tracking-widest text-orange-200">{uiText.customTitle}</p>
               <p className="text-sm font-semibold tracking-tight mt-2 leading-relaxed">{uiText.customDesc}</p>
             </div>
           )}
+          
+          <div className="grid grid-cols-2 text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-100 rounded-xl p-3 mb-6">
+            <div className="flex items-center gap-1.5"><span className="text-green-500 text-sm">✓</span> Professional Driver</div>
+            <div className="flex items-center gap-1.5"><span className="text-green-500 text-sm">✓</span> Highway Tolls</div>
+            <div className="flex items-center gap-1.5 mt-1"><span className="text-green-500 text-sm">✓</span> Fuel Included</div>
+            <div className="flex items-center gap-1.5 mt-1"><span className="text-green-500 text-sm">✓</span> Door-to-Door</div>
+          </div>
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-xl font-black text-indigo-950 tracking-tight">{uiText.title2}</h3>
             <button type="button" onClick={() => setStep(1)} className="text-xs font-bold text-blue-600 hover:text-blue-800 transition">← Back</button>
@@ -299,16 +314,22 @@ export default function EstimateForm({ locations = [], lang = 'en', initialPicku
           <div className="pt-2">
             <div className="bg-green-50/70 border border-green-100 rounded-xl p-4 mb-3">
               <ul className="space-y-2 text-sm font-bold text-green-800">
-                <li className="flex items-center gap-2">{uiText.trust1}</li>
-                <li className="flex items-center gap-2">{uiText.trust2}</li>
-                <li className="flex items-center gap-2">{uiText.trust3}</li>
+                <li className="flex items-center gap-2"><span className="bg-green-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">✓</span> {uiText.trust1}</li>
+                <li className="flex items-center gap-2"><span className="bg-green-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">✓</span> {uiText.trust2}</li>
+                <li className="flex items-center gap-2"><span className="bg-green-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">✓</span> {uiText.trust3}</li>
               </ul>
             </div>
             
             <button type="submit" disabled={isSubmitting} className={`w-full text-white font-black py-4 px-6 rounded-2xl shadow-lg transition tracking-tight text-sm ${isSubmitting ? 'bg-slate-300 cursor-wait' : 'bg-[#25D366] hover:bg-[#1ebd5a] shadow-green-600/30'}`}>
               {isSubmitting ? 'Syncing Infrastructure...' : uiText.btnSubmit}
             </button>
-            <p className="text-xs text-slate-400 text-center font-medium tracking-tight mt-4">{uiText.subText}</p>
+            <p className="text-[11px] text-slate-400 text-center font-medium tracking-tight mt-3 mb-4 px-4 leading-relaxed">{uiText.subText}</p>
+            
+            <div className="text-center mt-6 border-t border-slate-100 pt-4">
+              <a href="https://wa.me/36308285603" target="_blank" className="text-[11px] font-bold text-indigo-500 hover:text-indigo-700 underline decoration-indigo-200 underline-offset-4 transition">
+                {uiText.priceMatch}
+              </a>
+            </div>
           </div>
         </form>
       )}

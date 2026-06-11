@@ -37,12 +37,21 @@ const mainSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(mainSchema)} />
 
   <section class="max-w-6xl mx-auto px-6 py-12 md:py-20 text-center">
-    <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full shadow-sm">Direct European Carrier</span>
-    <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-6 mb-6 leading-tight">
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 bg-indigo-50 rounded-full px-4 py-1.5 text-xs font-bold text-indigo-700 border border-indigo-100 shadow-sm">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+        </span>
+        Recent request: Vienna → Budapest (3 mins ago)
+      </div>
+    </div>
+    
+    <h1 class="text-4xl md:text-6xl font-black text-indigo-950 tracking-tight max-w-4xl mx-auto mt-2 mb-6 leading-tight">
       Private Transfers Across Hungary, Austria & Germany
     </h1>
     <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-6 font-medium">
-      Direct pricing, multilingual drivers, and personal WhatsApp support. Get your best quote in minutes.
+      Direct fleet pricing with no agency commissions. Multilingual drivers, door-to-door service, and personal WhatsApp support.
     </p>
 
     <TrustStrip lang="en" />
